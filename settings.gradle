@@ -1,0 +1,4 @@
+rootProject.name = 'loan-application'
+
+include('loan')
+include('product')
