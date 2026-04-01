@@ -1,4 +1,9 @@
-rootProject.name = 'loan-application'
+rootProject.name = 'bank-application'
 
 include('loan')
+include('loan-api')
+include('loan-core')
+
 include('product')
+include('product-api')
+include('product-core')
