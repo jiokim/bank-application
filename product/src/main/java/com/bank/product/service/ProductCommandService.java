@@ -1,13 +1,28 @@
 package com.bank.product.service;
 
+import com.bank.product.core.domain.repository.ProductRepository;
 import com.bank.product.service.dto.ProductCreateRequest;
 import com.bank.product.service.dto.ProductCreateResponse;
+import com.bank.productapi.model.Pd;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ProductCommandService {
 
+    private final ProductRepository productRepository;
+
     public ProductCreateResponse create(ProductCreateRequest productCreateRequest) {
-        return null;
+        Pd product = productRepository.save(
+                productCreateRequest.getProductName(),
+                productCreateRequest.getInterestRate()
+        );
+
+        return new ProductCreateResponse(
+                product.getPdId(),
+                product.getPdNm(),
+                product.getInterestRate()
+        );
     }
 }
