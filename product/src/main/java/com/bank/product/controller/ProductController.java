@@ -5,6 +5,7 @@ import com.bank.product.service.ProductQueryService;
 import com.bank.product.service.dto.ProductCreateRequest;
 import com.bank.product.service.dto.ProductCreateResponse;
 import com.bank.product.service.dto.ProductResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,7 @@ public class ProductController {
     }
 
     @PostMapping("/v1/products")
-    public ProductCreateResponse createProduct(@RequestBody ProductCreateRequest request) {
+    public ProductCreateResponse createProduct(@Valid @RequestBody ProductCreateRequest request) {
         return productCommandService.create(request);
     }
 }
