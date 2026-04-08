@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ProductRepository {
 
-    Pd save(String productName, BigDecimal interestRate);
+    Pd save(String productName, BigDecimal interestRate, BigDecimal maxLoanAmt);
 
     Optional<Pd> findById(Long productId);
 

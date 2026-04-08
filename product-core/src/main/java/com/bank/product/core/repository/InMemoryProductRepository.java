@@ -16,9 +16,9 @@ public class InMemoryProductRepository implements ProductRepository {
     private final Map<Long, Pd> products = new LinkedHashMap<>();
 
     @Override
-    public synchronized Pd save(String productName, BigDecimal interestRate) {
+    public synchronized Pd save(String productName, BigDecimal interestRate, BigDecimal maxLoanAmt) {
         Long productId = sequence.incrementAndGet();
-        Pd product = new PdImpl(productId, productName, interestRate);
+        Pd product = new PdImpl(productId, productName, interestRate, maxLoanAmt);
         products.put(productId, product);
         return product;
     }
