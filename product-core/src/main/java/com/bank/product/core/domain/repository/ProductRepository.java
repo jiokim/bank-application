@@ -1,4 +1,4 @@
-package com.bank.product.core.model;
+package com.bank.product.core.domain.repository;
 
 import com.bank.productapi.model.Pd;
 

@@ -1,5 +1,6 @@
-package com.bank.product.core.model;
+package com.bank.product.core.domain.model;
 
+import com.bank.product.core.domain.repository.ProductRepository;
 import com.bank.productapi.model.Pd;
 import com.bank.productapi.model.PdMngr;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,6 @@ public class PdMngrImpl implements PdMngr {
     @Override
     public Pd getPd(Long pdId) {
         return productRepository.findById(pdId)
-            .orElseThrow(() -> new NoSuchElementException("Product not found: " + pdId));
+                .orElseThrow(() -> new NoSuchElementException("Product not found: " + pdId));
     }
 }
