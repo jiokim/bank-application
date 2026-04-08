@@ -18,12 +18,12 @@ public class ProductQueryService {
     public ProductResponse getProduct(Long productId) {
         Pd pd = productRepository.findById(productId)
                 .orElseThrow(() -> new NoSuchElementException("Product not found: " + productId));
-        return new ProductResponse(pd.getPdId(), pd.getPdNm(), pd.getInterestRate());
+        return new ProductResponse(pd.getPdId(), pd.getPdNm(), pd.getInterestRate(), pd.getMaxLoanAmt());
     }
 
     public List<ProductResponse> getProducts() {
         return productRepository.findAll().stream()
-                .map(pd -> new ProductResponse(pd.getPdId(), pd.getPdNm(), pd.getInterestRate()))
+                .map(pd -> new ProductResponse(pd.getPdId(), pd.getPdNm(), pd.getInterestRate(), pd.getMaxLoanAmt()))
                 .toList();
     }
 }

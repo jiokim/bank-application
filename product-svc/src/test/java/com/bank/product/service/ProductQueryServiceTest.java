@@ -77,6 +77,6 @@ class ProductQueryServiceTest {
     }
 
     private Pd fakePd(Long id, String name, BigDecimal rate) {
-        return new PdImpl(id, name, rate);
+        return new PdImpl(id, name, rate, new BigDecimal("300000000"));
     }
 }

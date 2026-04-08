@@ -39,7 +39,7 @@ class ProductControllerTest {
     @DisplayName("상품 ID로 단건 조회 시 200과 상품 정보를 반환한다")
     void 상품_단건_조회() throws Exception {
         when(productQueryService.getProduct(1L))
-                .thenReturn(new ProductResponse(1L, "주택담보대출", new BigDecimal("3.50")));
+                .thenReturn(new ProductResponse(1L, "주택담보대출", new BigDecimal("3.50"), new BigDecimal("300000000")));
 
         mockMvc.perform(get("/v1/products/1"))
                 .andExpect(status().isOk())
@@ -53,8 +53,8 @@ class ProductControllerTest {
     void 상품_목록_조회() throws Exception {
         when(productQueryService.getProducts())
                 .thenReturn(List.of(
-                        new ProductResponse(1L, "주택담보대출", new BigDecimal("3.50")),
-                        new ProductResponse(2L, "신용대출", new BigDecimal("4.10"))
+                        new ProductResponse(1L, "주택담보대출", new BigDecimal("3.50"), new BigDecimal("300000000")),
+                        new ProductResponse(2L, "신용대출", new BigDecimal("4.10"), new BigDecimal("200000000"))
                 ));
 
         mockMvc.perform(get("/v1/products"))
@@ -70,7 +70,7 @@ class ProductControllerTest {
     @DisplayName("상품 등록 요청 시 200과 등록된 상품 정보를 반환한다")
     void 상품_등록() throws Exception {
         when(productCommandService.create(argThat(this::sameCreateRequest)))
-                .thenReturn(new ProductCreateResponse(10L, "신용대출", new BigDecimal("5.50")));
+                .thenReturn(new ProductCreateResponse(10L, "신용대출", new BigDecimal("5.50"), new BigDecimal("300000000")));
 
         mockMvc.perform(post("/v1/products")
                         .contentType(MediaType.APPLICATION_JSON)

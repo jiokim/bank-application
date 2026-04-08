@@ -32,7 +32,7 @@ class ProductAcceptanceTest {
 
     @Test
     void 상품_단건_조회() {
-        productRepository.save("주택담보대출", new BigDecimal("3.50"));
+        productRepository.save("주택담보대출", new BigDecimal("3.50"), new BigDecimal("300000000"));
 
         given()
             .when()
@@ -46,8 +46,8 @@ class ProductAcceptanceTest {
 
     @Test
     void 상품_목록_조회() {
-        productRepository.save("주택담보대출", new BigDecimal("3.50"));
-        productRepository.save("신용대출", new BigDecimal("4.10"));
+        productRepository.save("주택담보대출", new BigDecimal("3.50"), new BigDecimal("300000000"));
+        productRepository.save("신용대출", new BigDecimal("4.10"), new BigDecimal("200000000"));
 
         given()
             .when()

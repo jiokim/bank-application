@@ -14,4 +14,7 @@ public class ProductCreateRequest {
 
     @NotNull
     private BigDecimal interestRate;
+
+    @NotNull
+    private BigDecimal maxLoanAmt;
 }

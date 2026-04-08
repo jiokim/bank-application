@@ -5,18 +5,20 @@ import lombok.Getter;
 import java.math.BigDecimal;
 
 @Getter
-public class ProductCreateResponse {
+public class ProductResponse {
 
     private Long productId;
     private String productName;
     private BigDecimal interestRate;
+    private BigDecimal maxLoanAmt;
 
-    public ProductCreateResponse() {
+    public ProductResponse() {
     }
 
-    public ProductCreateResponse(Long productId, String productName, BigDecimal interestRate) {
+    public ProductResponse(Long productId, String productName, BigDecimal interestRate, BigDecimal maxLoanAmt) {
         this.productId = productId;
         this.productName = productName;
         this.interestRate = interestRate;
+        this.maxLoanAmt = maxLoanAmt;
     }
 }

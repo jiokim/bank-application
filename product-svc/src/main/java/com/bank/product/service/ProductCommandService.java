@@ -16,13 +16,15 @@ public class ProductCommandService {
     public ProductCreateResponse create(ProductCreateRequest productCreateRequest) {
         Pd product = productRepository.save(
                 productCreateRequest.getProductName(),
-                productCreateRequest.getInterestRate()
+                productCreateRequest.getInterestRate(),
+                productCreateRequest.getMaxLoanAmt()
         );
 
         return new ProductCreateResponse(
                 product.getPdId(),
                 product.getPdNm(),
-                product.getInterestRate()
+                product.getInterestRate(),
+                product.getMaxLoanAmt()
         );
     }
 }
