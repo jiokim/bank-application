@@ -1,0 +1,7 @@
+plugins {
+    id 'bank.spring-library'
+}
+
+dependencies {
+    api project(':arrangement-api')
+}
