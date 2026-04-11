@@ -7,9 +7,10 @@ plugins {
 
 dependencies {
     implementation 'org.springframework:spring-context'
+    implementation 'org.springframework.boot:spring-boot-autoconfigure'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'io.rest-assured:rest-assured:5.4.0'
+    testImplementation 'io.rest-assured:rest-assured:5.5.0'
 }
 
 tasks.named('bootJar') {

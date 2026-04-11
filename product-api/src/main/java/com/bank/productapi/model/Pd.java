@@ -9,4 +9,6 @@ public interface Pd {
     String getPdNm();
 
     BigDecimal getInterestRate();
+
+    BigDecimal getMaxLoanAmt();
 }

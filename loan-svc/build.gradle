@@ -1,0 +1,9 @@
+plugins {
+    id 'bank.spring-app'
+}
+
+dependencies {
+    implementation project(':loan-core')
+    implementation project(':product-api')
+    implementation project(':product-core')
+}

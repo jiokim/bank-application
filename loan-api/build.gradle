@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    api project(':product-api')
+    api project(':arrangement-api')
 }
