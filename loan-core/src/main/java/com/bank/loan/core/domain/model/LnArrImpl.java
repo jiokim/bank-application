@@ -1,8 +1,7 @@
 package com.bank.loan.core.domain.model;
 
-import com.bank.arrangement.core.domain.model.ArrImpl;
-import com.bank.arrangementapi.enums.ArrSttsEnum;
-import com.bank.arrangementapi.enums.ArrTpEnum;
+import com.bank.loanapi.enums.ArrSttsEnum;
+import com.bank.loanapi.enums.ArrTpEnum;
 import com.bank.loanapi.model.LnArr;
 
 import java.math.BigDecimal;
@@ -14,7 +13,7 @@ public class LnArrImpl extends ArrImpl implements LnArr {
     private final BigDecimal lnAmt;
     private final BigDecimal intrRt;
 
-    public LnArrImpl(Long arrId, Long custId, Long pdId,
+    public LnArrImpl(Long arrId, Long custId, String pdId,
                      BigDecimal lnAmt, BigDecimal intrRt,
                      ArrSttsEnum arrSttsCd, LocalDate arrStrtDt, LocalDate arrEndDt) {
         super(arrId, ArrTpEnum.LN, custId, arrSttsCd, arrStrtDt, arrEndDt, pdId);

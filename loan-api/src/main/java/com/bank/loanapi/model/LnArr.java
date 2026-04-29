@@ -1,6 +1,6 @@
 package com.bank.loanapi.model;
 
-import com.bank.arrangementapi.model.Arr;
+import com.bank.loanapi.model.Arr;
 
 import java.math.BigDecimal;
 

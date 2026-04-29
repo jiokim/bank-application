@@ -7,13 +7,13 @@ import java.util.Objects;
 public class LnArrCreateSpec {
 
     private final Long custId;
-    private final Long pdId;
+    private final String pdId;
     private final BigDecimal lnAmt;
     private final BigDecimal intrRt;
     private final LocalDate arrStrtDt;
     private final LocalDate arrEndDt;
 
-    public LnArrCreateSpec(Long custId, Long pdId, BigDecimal lnAmt, BigDecimal intrRt,
+    public LnArrCreateSpec(Long custId, String pdId, BigDecimal lnAmt, BigDecimal intrRt,
                            LocalDate arrStrtDt, LocalDate arrEndDt) {
         this.custId = Objects.requireNonNull(custId);
         this.pdId = Objects.requireNonNull(pdId);
@@ -24,7 +24,7 @@ public class LnArrCreateSpec {
     }
 
     public Long getCustId() { return custId; }
-    public Long getPdId() { return pdId; }
+    public String getPdId() { return pdId; }
     public BigDecimal getLnAmt() { return lnAmt; }
     public BigDecimal getIntrRt() { return intrRt; }
     public LocalDate getArrStrtDt() { return arrStrtDt; }
