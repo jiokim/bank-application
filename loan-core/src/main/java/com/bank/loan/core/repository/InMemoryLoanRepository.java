@@ -3,7 +3,7 @@ package com.bank.loan.core.repository;
 import com.bank.loan.core.domain.model.LnArrCreateSpec;
 import com.bank.loan.core.domain.model.LnArrImpl;
 import com.bank.loan.core.domain.repository.LoanRepository;
-import com.bank.loan.core.domain.enums.ArrSttsEnum;
+import com.bank.arrangement.core.domain.enums.ArrSttsEnum;
 import com.bank.loan.core.domain.model.LnArr;
 import org.springframework.stereotype.Component;
 

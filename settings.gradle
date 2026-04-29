@@ -6,6 +6,8 @@ rootProject.name = 'bank-application'
 
 include('loan-svc')
 include('loan-core')
+include('arrangement-core')
+include('deposit-core')
 
 include('product-svc')
 include('product-api')

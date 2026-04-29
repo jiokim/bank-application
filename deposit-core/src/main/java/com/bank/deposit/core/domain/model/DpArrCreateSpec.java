@@ -1,4 +1,4 @@
-package com.bank.loan.core.domain.model;
+package com.bank.deposit.core.domain.model;
 
 import com.bank.productapi.model.Pd;
 
@@ -6,42 +6,46 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class LnArrCreateSpec {
+public class DpArrCreateSpec {
 
     private final Long custId;
     private final Long pdId;
-    private final BigDecimal lnAmt;
+    private final BigDecimal dpAmt;
     private final BigDecimal intrRt;
     private final LocalDate arrStrtDt;
     private final LocalDate arrEndDt;
+    private final LocalDate maturityDt;
 
-    public LnArrCreateSpec(Long custId, Long pdId, BigDecimal lnAmt, BigDecimal intrRt,
-                           LocalDate arrStrtDt, LocalDate arrEndDt) {
+    public DpArrCreateSpec(Long custId, Long pdId, BigDecimal dpAmt, BigDecimal intrRt,
+                           LocalDate arrStrtDt, LocalDate arrEndDt, LocalDate maturityDt) {
         this.custId = Objects.requireNonNull(custId);
         this.pdId = Objects.requireNonNull(pdId);
-        this.lnAmt = Objects.requireNonNull(lnAmt);
+        this.dpAmt = Objects.requireNonNull(dpAmt);
         this.intrRt = Objects.requireNonNull(intrRt);
         this.arrStrtDt = Objects.requireNonNull(arrStrtDt);
         this.arrEndDt = Objects.requireNonNull(arrEndDt);
+        this.maturityDt = Objects.requireNonNull(maturityDt);
     }
 
     public Long getCustId() { return custId; }
     public Long getPdId() { return pdId; }
-    public BigDecimal getLnAmt() { return lnAmt; }
+    public BigDecimal getDpAmt() { return dpAmt; }
     public BigDecimal getIntrRt() { return intrRt; }
     public LocalDate getArrStrtDt() { return arrStrtDt; }
     public LocalDate getArrEndDt() { return arrEndDt; }
+    public LocalDate getMaturityDt() { return maturityDt; }
 
-    public static LnArrCreateSpec fromProduct(Long custId, Pd product, BigDecimal lnAmt,
-                                              LocalDate arrStrtDt, LocalDate arrEndDt) {
+    public static DpArrCreateSpec fromProduct(Long custId, Pd product, BigDecimal dpAmt,
+                                              LocalDate arrStrtDt, LocalDate arrEndDt, LocalDate maturityDt) {
         Objects.requireNonNull(product);
-        return new LnArrCreateSpec(
+        return new DpArrCreateSpec(
                 custId,
                 product.getPdId(),
-                lnAmt,
+                dpAmt,
                 product.getInterestRate(),
                 arrStrtDt,
-                arrEndDt
+                arrEndDt,
+                maturityDt
         );
     }
 }

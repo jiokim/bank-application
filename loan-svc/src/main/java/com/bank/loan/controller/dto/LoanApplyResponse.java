@@ -1,6 +1,6 @@
 package com.bank.loan.controller.dto;
 
-import com.bank.loan.core.domain.enums.ArrSttsEnum;
+import com.bank.arrangement.core.domain.enums.ArrSttsEnum;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -29,12 +29,35 @@ public class LoanApplyResponse {
         this.arrEndDt = arrEndDt;
     }
 
-    public Long getArrId() { return arrId; }
-    public Long getCustId() { return custId; }
-    public Long getPdId() { return pdId; }
-    public BigDecimal getLnAmt() { return lnAmt; }
-    public BigDecimal getIntrRt() { return intrRt; }
-    public ArrSttsEnum getArrSttsCd() { return arrSttsCd; }
-    public LocalDate getArrStrtDt() { return arrStrtDt; }
-    public LocalDate getArrEndDt() { return arrEndDt; }
+    public Long getArrId() {
+        return arrId;
+    }
+
+    public Long getCustId() {
+        return custId;
+    }
+
+    public Long getPdId() {
+        return pdId;
+    }
+
+    public BigDecimal getLnAmt() {
+        return lnAmt;
+    }
+
+    public BigDecimal getIntrRt() {
+        return intrRt;
+    }
+
+    public ArrSttsEnum getArrSttsCd() {
+        return arrSttsCd;
+    }
+
+    public LocalDate getArrStrtDt() {
+        return arrStrtDt;
+    }
+
+    public LocalDate getArrEndDt() {
+        return arrEndDt;
+    }
 }

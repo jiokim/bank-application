@@ -8,7 +8,7 @@ import com.bank.loan.core.domain.repository.LnInquiryRepository;
 import com.bank.loan.core.domain.repository.LoanRepository;
 import com.bank.loan.service.dto.LoanApplyCommand;
 import com.bank.loan.service.dto.LoanApplyInfo;
-import com.bank.loan.core.domain.enums.ArrSttsEnum;
+import com.bank.arrangement.core.domain.enums.ArrSttsEnum;
 import com.bank.loan.core.domain.model.LnInquiry;
 import com.bank.loan.core.domain.model.LnInquiryResult;
 import org.junit.jupiter.api.BeforeEach;

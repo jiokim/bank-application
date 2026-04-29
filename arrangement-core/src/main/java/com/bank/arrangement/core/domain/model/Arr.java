@@ -1,7 +1,7 @@
-package com.bank.loan.core.domain.model;
+package com.bank.arrangement.core.domain.model;
 
-import com.bank.loan.core.domain.enums.ArrSttsEnum;
-import com.bank.loan.core.domain.enums.ArrTpEnum;
+import com.bank.arrangement.core.domain.enums.ArrSttsEnum;
+import com.bank.arrangement.core.domain.enums.ArrTpEnum;
 
 import java.time.LocalDate;
 

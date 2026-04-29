@@ -1,6 +1,6 @@
 package com.bank.loan.core.domain.model;
 
-import com.bank.loan.core.domain.model.Arr;
+import com.bank.arrangement.core.domain.model.Arr;
 
 import java.math.BigDecimal;
 
