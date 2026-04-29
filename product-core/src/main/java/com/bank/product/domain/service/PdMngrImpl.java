@@ -17,7 +17,7 @@ public class PdMngrImpl implements PdMngr {
     }
 
     @Override
-    public Pd getPd(String productId) {
+    public Pd getPd(Long productId) {
         return productRepository.findById(productId)
                 .orElseThrow(() -> new NoSuchElementException("Product not found: " + productId));
     }

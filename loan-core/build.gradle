@@ -4,5 +4,4 @@ plugins {
 
 dependencies {
     api project(':loan-api')
-    implementation project(':arrangement-core')
 }

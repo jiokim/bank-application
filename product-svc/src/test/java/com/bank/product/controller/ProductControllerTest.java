@@ -38,8 +38,8 @@ class ProductControllerTest {
     @Test
     @DisplayName("상품 ID로 단건 조회 시 200과 상품 정보를 반환한다")
     void 상품_단건_조회() throws Exception {
-        when(productQueryService.getProduct(ProductId.from("1001"))
-                .thenReturn(new ProductResponse("1001", "주택담보대출", new BigDecimal("3.50"), new BigDecimal("300000000")));
+        when(productQueryService.getProduct(1L))
+                .thenReturn(new ProductResponse(1L, "주택담보대출", new BigDecimal("3.50"), new BigDecimal("300000000")));
 
         mockMvc.perform(get("/v1/products/1"))
                 .andExpect(status().isOk())
@@ -77,7 +77,8 @@ class ProductControllerTest {
                         .content("""
                                 {
                                   "productName": "신용대출",
-                                  "interestRate": 5.5
+                                  "interestRate": 5.5,
+                                  "maxLoanAmt": 300000000
                                 }
                                 """))
                 .andExpect(status().isOk())
@@ -102,6 +103,7 @@ class ProductControllerTest {
     private boolean sameCreateRequest(ProductCreateRequest request) {
         return request != null
                 && "신용대출".equals(request.getProductName())
-                && new BigDecimal("5.5").compareTo(request.getInterestRate()) == 0;
+                && new BigDecimal("5.5").compareTo(request.getInterestRate()) == 0
+                && new BigDecimal("300000000").compareTo(request.getMaxLoanAmt()) == 0;
     }
 }

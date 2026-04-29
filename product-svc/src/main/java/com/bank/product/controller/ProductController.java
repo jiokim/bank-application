@@ -19,8 +19,8 @@ public class ProductController {
     private final ProductCommandService productCommandService;
 
     @GetMapping("/v1/products/{productId}")
-    public ProductResponse getProduct(@PathVariable String productId) {
-        return productQueryService.getProduct(ProductId.from(productId));
+    public ProductResponse getProduct(@PathVariable Long productId) {
+        return productQueryService.getProduct(productId);
     }
 
     @GetMapping("/v1/products")

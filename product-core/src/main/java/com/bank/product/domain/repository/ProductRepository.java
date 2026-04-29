@@ -10,7 +10,7 @@ public interface ProductRepository {
 
     Pd save(String productName, BigDecimal interestRate, BigDecimal maxLoanAmt);
 
-    Optional<Pd> findById(String productId);
+    Optional<Pd> findById(Long productId);
 
     List<Pd> findAll();
 }

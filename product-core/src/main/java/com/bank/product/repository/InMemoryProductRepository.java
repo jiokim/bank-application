@@ -13,18 +13,18 @@ import java.util.concurrent.atomic.AtomicLong;
 public class InMemoryProductRepository implements ProductRepository {
 
     private final AtomicLong sequence = new AtomicLong(0);
-    private final Map<String, Pd> products = new LinkedHashMap<>();
+    private final Map<Long, Pd> products = new LinkedHashMap<>();
 
     @Override
     public synchronized Pd save(String productName, BigDecimal interestRate, BigDecimal maxLoanAmt) {
-        String productId = "PD" + sequence.incrementAndGet();
+        Long productId = sequence.incrementAndGet();
         Pd product = new PdImpl(productId, productName, interestRate, maxLoanAmt);
         products.put(productId, product);
         return product;
     }
 
     @Override
-    public synchronized Optional<Pd> findById(String productId) {
+    public synchronized Optional<Pd> findById(Long productId) {
         return Optional.ofNullable(products.get(productId));
     }
 
