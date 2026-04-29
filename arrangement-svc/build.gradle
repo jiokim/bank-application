@@ -1,7 +1,0 @@
-plugins {
-    id 'bank.spring-app'
-}
-
-dependencies {
-    implementation project(':arrangement-core')
-}
