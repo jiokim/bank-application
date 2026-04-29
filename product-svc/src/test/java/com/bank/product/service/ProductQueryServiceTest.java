@@ -1,7 +1,7 @@
 package com.bank.product.service;
 
-import com.bank.product.core.domain.model.PdImpl;
-import com.bank.product.core.domain.repository.ProductRepository;
+import com.bank.product.domain.model.PdImpl;
+import com.bank.product.domain.repository.ProductRepository;
 import com.bank.product.service.dto.ProductResponse;
 import com.bank.productapi.model.Pd;
 import org.junit.jupiter.api.DisplayName;

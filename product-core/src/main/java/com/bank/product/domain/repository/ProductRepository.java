@@ -1,4 +1,4 @@
-package com.bank.product.core.domain.repository;
+package com.bank.product.domain.repository;
 
 import com.bank.productapi.model.Pd;
 
@@ -10,7 +10,7 @@ public interface ProductRepository {
 
     Pd save(String productName, BigDecimal interestRate, BigDecimal maxLoanAmt);
 
-    Optional<Pd> findById(Long productId);
+    Optional<Pd> findById(String productId);
 
     List<Pd> findAll();
 }

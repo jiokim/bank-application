@@ -1,8 +1,9 @@
 package com.bank.product.service;
 
-import com.bank.product.core.domain.repository.ProductRepository;
+import com.bank.product.domain.repository.ProductRepository;
 import com.bank.product.service.dto.ProductResponse;
 import com.bank.productapi.model.Pd;
+import com.bank.productapi.vo.ProductId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,8 @@ public class ProductQueryService {
 
     private final ProductRepository productRepository;
 
-    public ProductResponse getProduct(Long productId) {
-        Pd pd = productRepository.findById(productId)
+    public ProductResponse getProduct(ProductId productId) {
+        Pd pd = productRepository.findById(productId.getProductId())
                 .orElseThrow(() -> new NoSuchElementException("Product not found: " + productId));
         return new ProductResponse(pd.getPdId(), pd.getPdNm(), pd.getInterestRate(), pd.getMaxLoanAmt());
     }

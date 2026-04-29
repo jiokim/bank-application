@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public interface Pd {
 
-    Long getPdId();
+    String getPdId();
 
     String getPdNm();
 

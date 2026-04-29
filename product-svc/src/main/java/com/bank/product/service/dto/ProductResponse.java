@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 @Getter
 public class ProductResponse {
 
-    private Long productId;
+    private String productId;
     private String productName;
     private BigDecimal interestRate;
     private BigDecimal maxLoanAmt;
@@ -15,7 +15,7 @@ public class ProductResponse {
     public ProductResponse() {
     }
 
-    public ProductResponse(Long productId, String productName, BigDecimal interestRate, BigDecimal maxLoanAmt) {
+    public ProductResponse(String productId, String productName, BigDecimal interestRate, BigDecimal maxLoanAmt) {
         this.productId = productId;
         this.productName = productName;
         this.interestRate = interestRate;

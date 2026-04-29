@@ -1,4 +1,4 @@
-package com.bank.product.core.domain.model;
+package com.bank.product.domain.model;
 
 import com.bank.productapi.model.Pd;
 
@@ -7,12 +7,12 @@ import java.util.Objects;
 
 public class PdImpl implements Pd {
 
-    private final Long pdId;
+    private final String pdId;
     private final String pdNm;
     private final BigDecimal interestRate;
     private final BigDecimal maxLoanAmt;
 
-    public PdImpl(Long pdId, String pdNm, BigDecimal interestRate, BigDecimal maxLoanAmt) {
+    public PdImpl(String pdId, String pdNm, BigDecimal interestRate, BigDecimal maxLoanAmt) {
         this.pdId = Objects.requireNonNull(pdId, "pdId must not be null");
         this.pdNm = Objects.requireNonNull(pdNm, "pdNm must not be null");
         this.interestRate = Objects.requireNonNull(interestRate, "interestRate must not be null");
@@ -20,7 +20,7 @@ public class PdImpl implements Pd {
     }
 
     @Override
-    public Long getPdId() {
+    public String getPdId() {
         return pdId;
     }
 
