@@ -10,8 +10,8 @@ import com.bank.loan.service.application.multistrategy.LnInquiryStrategy;
 import com.bank.loan.service.dto.LoanInquiryCommand;
 import com.bank.loan.service.dto.LoanInquiryInfo;
 import com.bank.loan.service.dto.LoanInquiryResultInfo;
-import com.bank.loanapi.model.LnInquiry;
-import com.bank.loanapi.model.LnInquiryResult;
+import com.bank.loan.core.domain.model.LnInquiry;
+import com.bank.loan.core.domain.model.LnInquiryResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

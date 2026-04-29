@@ -1,7 +1,7 @@
 package com.bank.loan.core.domain.repository;
 
 import com.bank.loan.core.domain.model.LnInquiryCreateSpec;
-import com.bank.loanapi.model.LnInquiry;
+import com.bank.loan.core.domain.model.LnInquiry;
 
 import java.util.Optional;
 

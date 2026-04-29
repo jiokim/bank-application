@@ -1,8 +1,8 @@
 package com.bank.loan.core.domain.model;
 
-import com.bank.loanapi.enums.ArrSttsEnum;
-import com.bank.loanapi.enums.ArrTpEnum;
-import com.bank.loanapi.model.Arr;
+import com.bank.loan.core.domain.enums.ArrSttsEnum;
+import com.bank.loan.core.domain.enums.ArrTpEnum;
+import com.bank.loan.core.domain.model.Arr;
 
 import java.time.LocalDate;
 import java.util.Objects;

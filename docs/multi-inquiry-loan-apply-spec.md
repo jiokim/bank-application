@@ -157,13 +157,10 @@
 - [ ] `ProductInfo` 값 객체 생성 (`pdId`, `maxLoanAmt`, `intrRt`)
 - [ ] `InMemoryProductClient` 구현체 생성
 
-### loan-api — 도메인 계약
+### loan-core — 도메인 계약 및 구현
 
 - [ ] `LnInquiryResult` 인터페이스 생성 (`pdId`, `maxLoanAmt`, `intrRt`)
 - [ ] `LnInquiry` 인터페이스 생성 (`inquiryId`, `custId`, `inquiryDt`, `getResults()`)
-
-### loan-core — 도메인 구현
-
 - [ ] `LnInquiryResultImpl` 구현
 - [ ] `LnInquiryImpl` 구현
 - [ ] `LnInquiryCreateSpec` 생성

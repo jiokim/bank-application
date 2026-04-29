@@ -1,6 +1,6 @@
 package com.bank.loan.core.domain.model;
 
-import com.bank.loanapi.model.LnInquiryResult;
+import com.bank.loan.core.domain.model.LnInquiryResult;
 
 import java.util.List;
 import java.util.Objects;

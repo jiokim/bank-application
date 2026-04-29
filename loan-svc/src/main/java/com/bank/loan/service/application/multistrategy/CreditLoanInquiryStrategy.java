@@ -3,7 +3,7 @@ package com.bank.loan.service.application.multistrategy;
 import com.bank.loan.client.kcb.KcbCreditInfo;
 import com.bank.loan.client.nice.NiceCreditInfo;
 import com.bank.loan.core.domain.model.LnInquiryResultImpl;
-import com.bank.loanapi.model.LnInquiryResult;
+import com.bank.loan.core.domain.model.LnInquiryResult;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

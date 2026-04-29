@@ -11,7 +11,7 @@ import com.bank.loan.core.domain.repository.LnInquiryRepository;
 import com.bank.loan.service.application.multistrategy.LnInquiryStrategy;
 import com.bank.loan.service.dto.LoanInquiryCommand;
 import com.bank.loan.service.dto.LoanInquiryInfo;
-import com.bank.loanapi.model.LnInquiryResult;
+import com.bank.loan.core.domain.model.LnInquiryResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

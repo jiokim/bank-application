@@ -3,7 +3,7 @@ package com.bank.loan.core.repository;
 import com.bank.loan.core.domain.model.LnInquiryCreateSpec;
 import com.bank.loan.core.domain.model.LnInquiryImpl;
 import com.bank.loan.core.domain.repository.LnInquiryRepository;
-import com.bank.loanapi.model.LnInquiry;
+import com.bank.loan.core.domain.model.LnInquiry;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;

@@ -5,7 +5,7 @@ import com.bank.loan.client.kifa.KifaClient;
 import com.bank.loan.client.kifa.KifaGuaranteeInfo;
 import com.bank.loan.client.nice.NiceCreditInfo;
 import com.bank.loan.core.domain.model.LnInquiryResultImpl;
-import com.bank.loanapi.model.LnInquiryResult;
+import com.bank.loan.core.domain.model.LnInquiryResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

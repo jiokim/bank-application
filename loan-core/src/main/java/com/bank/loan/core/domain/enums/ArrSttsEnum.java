@@ -1,4 +1,4 @@
-package com.bank.loanapi.enums;
+package com.bank.loan.core.domain.enums;
 
 public enum ArrSttsEnum {
 

@@ -2,7 +2,7 @@ package com.bank.loan.service.application.multistrategy;
 
 import com.bank.loan.client.kcb.KcbCreditInfo;
 import com.bank.loan.client.nice.NiceCreditInfo;
-import com.bank.loanapi.model.LnInquiryResult;
+import com.bank.loan.core.domain.model.LnInquiryResult;
 
 import java.util.concurrent.CompletableFuture;
 

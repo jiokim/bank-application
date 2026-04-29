@@ -1,4 +1,4 @@
-package com.bank.loanapi.model;
+package com.bank.loan.core.domain.model;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.bank.loan.controller.dto;
 
-import com.bank.loanapi.enums.ArrSttsEnum;
+import com.bank.loan.core.domain.enums.ArrSttsEnum;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

@@ -1,7 +1,7 @@
 package com.bank.loan.core.domain.model;
 
-import com.bank.loanapi.model.LnInquiry;
-import com.bank.loanapi.model.LnInquiryResult;
+import com.bank.loan.core.domain.model.LnInquiry;
+import com.bank.loan.core.domain.model.LnInquiryResult;
 
 import java.time.LocalDate;
 import java.util.List;

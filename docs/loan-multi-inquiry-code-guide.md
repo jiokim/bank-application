@@ -33,13 +33,13 @@ loan-svc
   src/main/java/com/bank/loan/service/dto/LoanApplyResponse.java
 
 loan-core
+  src/main/java/com/bank/loan/core/domain/model/LnArr.java
+  src/main/java/com/bank/loan/core/domain/model/LnInquiry.java
+  src/main/java/com/bank/loan/core/domain/model/LnInquiryResult.java
   src/main/java/com/bank/loan/core/domain/model/LnArrCreateSpec.java
   src/main/java/com/bank/loan/core/domain/model/LnArrImpl.java
   src/main/java/com/bank/loan/core/domain/repository/LoanRepository.java
   src/main/java/com/bank/loan/core/repository/InMemoryLoanRepository.java
-
-loan-api
-  src/main/java/com/bank/loanapi/model/LnArr.java
 ```
 
 현재 요청 DTO는 다음 값을 받는다.
@@ -268,20 +268,7 @@ InMemoryLnInquiryRepository
 
 `loan-core`는 HTTP나 JSON을 알면 안 된다. 순수하게 조회 이력과 대출 약정이라는 도메인 개념만 다루는 편이 좋다.
 
-### 7.3 `loan-api`
-
-다른 모듈이 참조할 수 있는 공개 계약을 둔다.
-
-들어와야 할 인터페이스:
-
-```text
-LnInquiry
-LnInquiryResult
-```
-
-현재 `LnArr`가 `loan-api`에 있는 것처럼, 조회 이력도 외부에서 읽을 필요가 있다면 `loan-api`에 계약을 두는 것이 자연스럽다.
-
-### 7.4 상품/외부기관 연동
+### 7.3 상품/외부기관 연동
 
 멀티조회는 단순히 상품 테이블만 읽는 기능이 아니다. 실제 대출 도메인에서는 상품, 신용평가, 보증 가능 여부, 고객 상태 등의 결과가 합쳐져야 한다.
 
