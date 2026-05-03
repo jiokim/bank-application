@@ -1,7 +1,7 @@
 package com.bank.loan.core.domain.repository;
 
 import com.bank.loan.core.domain.model.LnArrCreateSpec;
-import com.bank.loanapi.model.LnArr;
+import com.bank.loan.core.domain.model.LnArr;
 
 import java.util.List;
 import java.util.Optional;

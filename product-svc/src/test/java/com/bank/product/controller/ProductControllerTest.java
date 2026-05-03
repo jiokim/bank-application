@@ -77,7 +77,8 @@ class ProductControllerTest {
                         .content("""
                                 {
                                   "productName": "신용대출",
-                                  "interestRate": 5.5
+                                  "interestRate": 5.5,
+                                  "maxLoanAmt": 300000000
                                 }
                                 """))
                 .andExpect(status().isOk())
@@ -102,6 +103,7 @@ class ProductControllerTest {
     private boolean sameCreateRequest(ProductCreateRequest request) {
         return request != null
                 && "신용대출".equals(request.getProductName())
-                && new BigDecimal("5.5").compareTo(request.getInterestRate()) == 0;
+                && new BigDecimal("5.5").compareTo(request.getInterestRate()) == 0
+                && new BigDecimal("300000000").compareTo(request.getMaxLoanAmt()) == 0;
     }
 }

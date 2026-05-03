@@ -4,13 +4,10 @@ pluginManagement {
 
 rootProject.name = 'bank-application'
 
-include('arrangement-svc')
-include('arrangement-api')
-include('arrangement-core')
-
 include('loan-svc')
-include('loan-api')
 include('loan-core')
+include('arrangement-core')
+include('deposit-core')
 
 include('product-svc')
 include('product-api')

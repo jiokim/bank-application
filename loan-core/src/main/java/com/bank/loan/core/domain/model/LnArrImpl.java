@@ -1,9 +1,8 @@
 package com.bank.loan.core.domain.model;
 
+import com.bank.arrangement.core.domain.enums.ArrSttsEnum;
+import com.bank.arrangement.core.domain.enums.ArrTpEnum;
 import com.bank.arrangement.core.domain.model.ArrImpl;
-import com.bank.arrangementapi.enums.ArrSttsEnum;
-import com.bank.arrangementapi.enums.ArrTpEnum;
-import com.bank.loanapi.model.LnArr;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

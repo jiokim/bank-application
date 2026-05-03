@@ -1,6 +1,6 @@
 package com.bank.product.service;
 
-import com.bank.product.core.domain.repository.ProductRepository;
+import com.bank.product.domain.repository.ProductRepository;
 import com.bank.product.service.dto.ProductResponse;
 import com.bank.productapi.model.Pd;
 import lombok.RequiredArgsConstructor;

@@ -1,5 +1,7 @@
 package com.bank.loan.core.domain.model;
 
+import com.bank.productapi.model.Pd;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -29,4 +31,17 @@ public class LnArrCreateSpec {
     public BigDecimal getIntrRt() { return intrRt; }
     public LocalDate getArrStrtDt() { return arrStrtDt; }
     public LocalDate getArrEndDt() { return arrEndDt; }
+
+    public static LnArrCreateSpec fromProduct(Long custId, Pd product, BigDecimal lnAmt,
+                                              LocalDate arrStrtDt, LocalDate arrEndDt) {
+        Objects.requireNonNull(product);
+        return new LnArrCreateSpec(
+                custId,
+                product.getPdId(),
+                lnAmt,
+                product.getInterestRate(),
+                arrStrtDt,
+                arrEndDt
+        );
+    }
 }

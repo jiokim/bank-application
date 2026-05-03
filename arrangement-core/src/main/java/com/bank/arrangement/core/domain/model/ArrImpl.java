@@ -1,9 +1,7 @@
 package com.bank.arrangement.core.domain.model;
 
-import com.bank.arrangementapi.enums.ArrSttsEnum;
-import com.bank.arrangementapi.enums.ArrTpEnum;
-import com.bank.arrangementapi.model.Arr;
-
+import com.bank.arrangement.core.domain.enums.ArrSttsEnum;
+import com.bank.arrangement.core.domain.enums.ArrTpEnum;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -28,38 +26,11 @@ public abstract class ArrImpl implements Arr {
         this.pdId = Objects.requireNonNull(pdId);
     }
 
-    @Override
-    public Long getArrId() {
-        return arrId;
-    }
-
-    @Override
-    public ArrTpEnum getArrTpCd() {
-        return arrTpCd;
-    }
-
-    @Override
-    public Long getCustId() {
-        return custId;
-    }
-
-    @Override
-    public ArrSttsEnum getArrSttsCd() {
-        return arrSttsCd;
-    }
-
-    @Override
-    public LocalDate getArrStrtDt() {
-        return arrStrtDt;
-    }
-
-    @Override
-    public LocalDate getArrEndDt() {
-        return arrEndDt;
-    }
-
-    @Override
-    public Long getPdId() {
-        return pdId;
-    }
+    @Override public Long getArrId() { return arrId; }
+    @Override public ArrTpEnum getArrTpCd() { return arrTpCd; }
+    @Override public Long getCustId() { return custId; }
+    @Override public ArrSttsEnum getArrSttsCd() { return arrSttsCd; }
+    @Override public LocalDate getArrStrtDt() { return arrStrtDt; }
+    @Override public LocalDate getArrEndDt() { return arrEndDt; }
+    @Override public Long getPdId() { return pdId; }
 }
