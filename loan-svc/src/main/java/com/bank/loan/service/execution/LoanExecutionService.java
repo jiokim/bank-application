@@ -44,7 +44,8 @@ public class LoanExecutionService {
                 command.getLnAmt(),
                 result.getIntrRt(),
                 today,
-                today.plusYears(1)
+                today.plusYears(1),
+                command.getCustRrn()
         ));
 
         return new LoanApplyInfo(

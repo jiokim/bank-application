@@ -14,15 +14,17 @@ public class LnArrCreateSpec {
     private final BigDecimal intrRt;
     private final LocalDate arrStrtDt;
     private final LocalDate arrEndDt;
+    private final String custRrn;
 
     public LnArrCreateSpec(Long custId, Long pdId, BigDecimal lnAmt, BigDecimal intrRt,
-                           LocalDate arrStrtDt, LocalDate arrEndDt) {
+                           LocalDate arrStrtDt, LocalDate arrEndDt, String custRrn) {
         this.custId = Objects.requireNonNull(custId);
         this.pdId = Objects.requireNonNull(pdId);
         this.lnAmt = Objects.requireNonNull(lnAmt);
         this.intrRt = Objects.requireNonNull(intrRt);
         this.arrStrtDt = Objects.requireNonNull(arrStrtDt);
         this.arrEndDt = Objects.requireNonNull(arrEndDt);
+        this.custRrn = Objects.requireNonNull(custRrn);
     }
 
     public Long getCustId() { return custId; }
@@ -31,8 +33,9 @@ public class LnArrCreateSpec {
     public BigDecimal getIntrRt() { return intrRt; }
     public LocalDate getArrStrtDt() { return arrStrtDt; }
     public LocalDate getArrEndDt() { return arrEndDt; }
+    public String getCustRrn() { return custRrn; }
 
-    public static LnArrCreateSpec fromProduct(Long custId, Pd product, BigDecimal lnAmt,
+    public static LnArrCreateSpec fromProduct(Long custId, Pd product, BigDecimal lnAmt, String custRrn,
                                               LocalDate arrStrtDt, LocalDate arrEndDt) {
         Objects.requireNonNull(product);
         return new LnArrCreateSpec(
@@ -41,7 +44,8 @@ public class LnArrCreateSpec {
                 lnAmt,
                 product.getInterestRate(),
                 arrStrtDt,
-                arrEndDt
+                arrEndDt,
+                custRrn
         );
     }
 }

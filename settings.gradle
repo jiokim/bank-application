@@ -8,6 +8,8 @@ include('loan-svc')
 include('loan-core')
 include('arrangement-core')
 include('deposit-core')
+include('bank-common')
+include('bank-common-core')
 
 include('product-svc')
 include('product-api')

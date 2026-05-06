@@ -1,0 +1,10 @@
+plugins {
+    id 'bank.java-common'
+    id 'java-library'
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.14.0'
+    testImplementation 'org.assertj:assertj-core:4.0.0-M1'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}

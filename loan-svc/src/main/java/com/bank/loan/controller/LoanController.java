@@ -49,7 +49,7 @@ public class LoanController {
     @PostMapping
     public LoanApplyResponse apply(@Valid @RequestBody LoanApplyRequest request) {
         LoanApplyInfo info = loanExecutionService.apply(
-                new LoanApplyCommand(request.getInquiryId(), request.getPdId(), request.getLnAmt()));
+                new LoanApplyCommand(request.getInquiryId(), request.getPdId(), request.getLnAmt(), request.getCustRrn()));
         return toResponse(info);
     }
 
