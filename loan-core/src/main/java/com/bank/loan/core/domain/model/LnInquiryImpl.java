@@ -1,8 +1,5 @@
 package com.bank.loan.core.domain.model;
 
-import com.bank.loan.core.domain.model.LnInquiry;
-import com.bank.loan.core.domain.model.LnInquiryResult;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -18,7 +15,7 @@ public class LnInquiryImpl implements LnInquiry {
         this.inquiryId = Objects.requireNonNull(inquiryId);
         this.custId = Objects.requireNonNull(custId);
         this.inquiryDt = Objects.requireNonNull(inquiryDt);
-        this.results = Objects.requireNonNull(results);
+        this.results = List.copyOf(Objects.requireNonNull(results));
     }
 
     @Override public Long getInquiryId() { return inquiryId; }

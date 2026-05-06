@@ -1,6 +1,6 @@
 package com.bank.productapi.model;
 
-public interface PdMngr {
+public interface PdMngr<T extends Pd> {
 
-    Pd getPd(Long productId);
+    T getPd(Long productId);
 }

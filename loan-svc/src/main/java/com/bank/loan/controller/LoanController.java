@@ -11,6 +11,8 @@ import com.bank.loan.service.dto.LoanApplyInfo;
 import com.bank.loan.service.dto.LoanInquiryCommand;
 import com.bank.loan.service.dto.LoanInquiryInfo;
 import com.bank.loan.service.execution.LoanExecutionService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Tag(name = "대출", description = "한도조회 및 대출 실행 API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/loans")
@@ -28,6 +31,10 @@ public class LoanController {
     private final LoanApplicationService loanApplicationService;
     private final LoanExecutionService loanExecutionService;
 
+    @Operation(
+        summary = "멀티상품 한도조회",
+        description = "최대 3개 상품의 가능 한도와 금리를 병렬로 조회합니다. 반환된 inquiryId는 대출 실행(apply) 시 사용됩니다."
+    )
     @PostMapping("/inquiry")
     public LoanInquiryResponse inquiry(@Valid @RequestBody LoanInquiryRequest request) {
         LoanInquiryInfo info = loanApplicationService.inquiry(
@@ -35,6 +42,10 @@ public class LoanController {
         return toResponse(info);
     }
 
+    @Operation(
+        summary = "대출 실행",
+        description = "한도조회 결과(inquiryId)를 기반으로 선택한 상품의 대출 계약을 생성합니다. inquiryId는 반드시 inquiry API를 먼저 호출해 발급받아야 합니다."
+    )
     @PostMapping
     public LoanApplyResponse apply(@Valid @RequestBody LoanApplyRequest request) {
         LoanApplyInfo info = loanExecutionService.apply(

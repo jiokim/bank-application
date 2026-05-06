@@ -4,4 +4,5 @@ plugins {
 
 dependencies {
     implementation project(':loan-core')
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.3'
 }

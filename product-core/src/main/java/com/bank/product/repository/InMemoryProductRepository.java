@@ -1,6 +1,6 @@
 package com.bank.product.repository;
 
-import com.bank.product.domain.model.PdImpl;
+import com.bank.product.domain.model.LnPdImpl;
 import com.bank.product.domain.repository.ProductRepository;
 import com.bank.productapi.model.Pd;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ public class InMemoryProductRepository implements ProductRepository {
     @Override
     public synchronized Pd save(String productName, BigDecimal interestRate, BigDecimal maxLoanAmt) {
         Long productId = sequence.incrementAndGet();
-        Pd product = new PdImpl(productId, productName, interestRate, maxLoanAmt);
+        Pd product = new LnPdImpl(productId, productName, interestRate, maxLoanAmt);
         products.put(productId, product);
         return product;
     }
