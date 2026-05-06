@@ -4,6 +4,22 @@
 ## 객체 관계도
 
 ```
+┌────────────────────────────────────────────────────────────────┐
+│ product-api                                                    │
+│                                                                │
+│  <<interface>> Pd                                              │
+│  + getPdNm(): String                                           │
+│  + getInterestRate(): BigDecimal                               │
+│            ▲                                                   │
+│     ┌──────┴──────┐                                            │
+│     │             │                                            │
+│  LnPd           DpPd                                           │
+│  + getMaxLoanAmt()                                             │
+│                                                                │
+│  <<interface>> PdMngr<T extends Pd>                            │
+│  + getPd(Long): T                                              │
+└────────────────────────────────────────────────────────────────┘
+
 ┌──────────────────────────────────────────────────────────────────────────────┐
 │ arrangement-core                                                             │
 │                                                                              │
@@ -65,7 +81,8 @@
                                              │
                                       ┌──────┴───────┐
                                       │ product-core │
-                                      │ 상품 도메인/저장소 │
+                                      │ LnPdMngrImpl │
+                                      │ DpPdMngrImpl │
                                       └──────────────┘
 
 ┌────────────────────┐
@@ -98,9 +115,17 @@
 | `loan-core` | 대출 도메인 계약, 모델, 저장소 구현. `product-api`의 상품 계약을 사용 |
 | `deposit-core` | 예금 도메인 계약, 모델, 저장소 구현. `product-api`의 상품 계약을 사용 |
 | `loan-svc` | 한도조회/대출실행 API 서비스 (포트 9000) |
-| `product-api` | 상품 인터페이스 (`Pd`, `PdMngr`) |
-| `product-core` | 상품 도메인 모델, 저장소, 자동 구성 |
+| `product-api` | 상품 인터페이스 (`Pd`, `LnPd`, `DpPd`, `PdMngr<T>`) |
+| `product-core` | 상품 도메인 모델, 저장소, 자동 구성 (`LnPdMngrImpl`, `DpPdMngrImpl`) |
 | `product-svc` | 상품 등록/조회 API 서비스 (포트 9001) |
+
+## API 문서
+
+`loan-svc` 실행 후 Swagger UI에서 API를 확인할 수 있다.
+
+| 서비스 | URL |
+|--------|-----|
+| loan-svc Swagger UI | http://localhost:9000/swagger-ui.html |
 
 ## 테이블 매핑 관점
 
