@@ -78,7 +78,9 @@ class ProductControllerTest {
                                 {
                                   "productName": "신용대출",
                                   "interestRate": 5.5,
-                                  "maxLoanAmt": 300000000
+                                  "maxLoanAmt": 300000000,
+                                  "minAge": 19,
+                                  "maxAge": 70
                                 }
                                 """))
                 .andExpect(status().isOk())

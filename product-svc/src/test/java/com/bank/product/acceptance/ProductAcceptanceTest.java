@@ -30,7 +30,7 @@ class ProductAcceptanceTest {
 
     @Test
     void 상품_단건_조회() throws Exception {
-        productRepository.save("주택담보대출", new BigDecimal("3.50"), new BigDecimal("300000000"));
+        productRepository.save("주택담보대출", new BigDecimal("3.50"), new BigDecimal("300000000"), 19, 70);
 
         mockMvc.perform(get("/v1/products/1"))
                 .andExpect(status().isOk())
@@ -41,8 +41,8 @@ class ProductAcceptanceTest {
 
     @Test
     void 상품_목록_조회() throws Exception {
-        productRepository.save("주택담보대출", new BigDecimal("3.50"), new BigDecimal("300000000"));
-        productRepository.save("신용대출", new BigDecimal("4.10"), new BigDecimal("200000000"));
+        productRepository.save("주택담보대출", new BigDecimal("3.50"), new BigDecimal("300000000"), 19, 70);
+        productRepository.save("신용대출", new BigDecimal("4.10"), new BigDecimal("200000000"), 19, 70);
 
         mockMvc.perform(get("/v1/products"))
                 .andExpect(status().isOk())
@@ -59,7 +59,9 @@ class ProductAcceptanceTest {
                         {
                             "productName": "신용대출",
                             "interestRate": 5.5,
-                            "maxLoanAmt": 300000000
+                            "maxLoanAmt": 300000000,
+                            "minAge": 19,
+                            "maxAge": 70
                         }
                         """))
                 .andExpect(status().isOk())

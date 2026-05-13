@@ -5,5 +5,7 @@ plugins {
 dependencies {
     implementation project(':bank-common-core')
     implementation project(':loan-core')
+    implementation project(':cust-core')
+    implementation project(':product-core')
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.3'
 }

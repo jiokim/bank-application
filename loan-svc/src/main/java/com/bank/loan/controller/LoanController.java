@@ -1,16 +1,15 @@
 package com.bank.loan.controller;
 
-import com.bank.loan.controller.dto.LoanApplyRequest;
-import com.bank.loan.controller.dto.LoanApplyResponse;
-import com.bank.loan.controller.dto.LoanInquiryRequest;
-import com.bank.loan.controller.dto.LoanInquiryResponse;
-import com.bank.loan.controller.dto.LoanInquiryResultItem;
-import com.bank.loan.service.application.LoanApplicationService;
-import com.bank.loan.service.dto.LoanApplyCommand;
-import com.bank.loan.service.dto.LoanApplyInfo;
-import com.bank.loan.service.dto.LoanInquiryCommand;
-import com.bank.loan.service.dto.LoanInquiryInfo;
-import com.bank.loan.service.execution.LoanExecutionService;
+import com.bank.loan.controller.dto.*;
+import com.bank.loan.service.application.assessment.LnAssessmentService;
+import com.bank.loan.service.application.eligibility.LnEligibilityService;
+import com.bank.loan.service.application.assessment.dto.LoanAssessmentCommand;
+import com.bank.loan.service.application.assessment.dto.LoanAssessmentInfo;
+import com.bank.loan.service.application.eligibility.dto.LoanEligibilityCommand;
+import com.bank.loan.service.application.eligibility.dto.LoanEligibilityInfo;
+import com.bank.loan.service.execution.LnExecutionService;
+import com.bank.loan.service.execution.dto.LoanApplyCommand;
+import com.bank.loan.service.execution.dto.LoanApplyInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -28,32 +27,42 @@ import java.util.List;
 @RequestMapping("/v1/loans")
 public class LoanController {
 
-    private final LoanApplicationService loanApplicationService;
-    private final LoanExecutionService loanExecutionService;
+    private final LnAssessmentService assessmentService;
+    private final LnEligibilityService eligibilityService;
+    private final LnExecutionService executionService;
 
-    @Operation(
-        summary = "멀티상품 한도조회",
-        description = "최대 3개 상품의 가능 한도와 금리를 병렬로 조회합니다. 반환된 inquiryId는 대출 실행(apply) 시 사용됩니다."
-    )
+    @Operation(summary = "멀티상품 한도조회",
+            description = "최대 3개 상품의 가능 한도와 금리를 병렬로 조회합니다. 반환된 inquiryId는 대출 실행(apply) 시 사용됩니다.")
     @PostMapping("/inquiry")
     public LoanInquiryResponse inquiry(@Valid @RequestBody LoanInquiryRequest request) {
-        LoanInquiryInfo info = loanApplicationService.inquiry(
-                new LoanInquiryCommand(request.getCustId(), request.getPdIds()));
+        LoanAssessmentInfo info = assessmentService.assess(
+                new LoanAssessmentCommand(request.getCustId(), request.getPdIds()));
         return toResponse(info);
     }
 
-    @Operation(
-        summary = "대출 실행",
-        description = "한도조회 결과(inquiryId)를 기반으로 선택한 상품의 대출 계약을 생성합니다. inquiryId는 반드시 inquiry API를 먼저 호출해 발급받아야 합니다."
-    )
+    @Operation(summary = "대출신청가능여부확인",
+            description = "고객의 연령·부결이력·진행중인 신청·대출잔액 등을 검증하여 신청 가능 여부를 반환합니다.")
+    @PostMapping("/eligibility")
+    public LoanEligibilityResponse checkEligibility(@Valid @RequestBody LoanEligibilityRequest request) {
+        LoanEligibilityInfo info = eligibilityService.checkEligibility(
+                new LoanEligibilityCommand(request.custId(), request.pdId(), request.lnRcvChnlCd()));
+        return new LoanEligibilityResponse(
+                info.eligible() ? "Y" : "N",
+                info.inquiryId(),
+                info.eligible() ? "S" : "F",
+                info.message());
+    }
+
+    @Operation(summary = "대출 실행",
+            description = "한도조회 결과(inquiryId)를 기반으로 선택한 상품의 대출 계약을 생성합니다.")
     @PostMapping
     public LoanApplyResponse apply(@Valid @RequestBody LoanApplyRequest request) {
-        LoanApplyInfo info = loanExecutionService.apply(
+        LoanApplyInfo info = executionService.apply(
                 new LoanApplyCommand(request.getInquiryId(), request.getPdId(), request.getLnAmt(), request.getCustRrn()));
         return toResponse(info);
     }
 
-    private LoanInquiryResponse toResponse(LoanInquiryInfo info) {
+    private LoanInquiryResponse toResponse(LoanAssessmentInfo info) {
         List<LoanInquiryResultItem> items = info.getResults().stream()
                 .map(r -> new LoanInquiryResultItem(r.getPdId(), r.getMaxLoanAmt(), r.getIntrRt()))
                 .toList();

@@ -2,6 +2,7 @@ package com.bank.arrangement.core.domain.enums;
 
 public enum ArrSttsEnum {
 
+    IN_PROGRESS("P"),
     ACTIVE("A"),
     TERMINATE("T");
 

@@ -17,7 +17,9 @@ public class ProductCommandService {
         Pd product = productRepository.save(
                 productCreateRequest.getProductName(),
                 productCreateRequest.getInterestRate(),
-                productCreateRequest.getMaxLoanAmt()
+                productCreateRequest.getMaxLoanAmt(),
+                productCreateRequest.getMinAge(),
+                productCreateRequest.getMaxAge()
         );
 
         return new ProductCreateResponse(

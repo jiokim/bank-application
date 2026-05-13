@@ -17,4 +17,10 @@ public class ProductCreateRequest {
 
     @NotNull
     private BigDecimal maxLoanAmt;
+
+    @NotNull
+    private Integer minAge;
+
+    @NotNull
+    private Integer maxAge;
 }

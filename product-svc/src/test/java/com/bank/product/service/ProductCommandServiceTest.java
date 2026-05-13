@@ -34,11 +34,11 @@ class ProductCommandServiceTest {
     void 등록_요청값_전달() {
         ProductCreateRequest request = request("신용대출", new BigDecimal("5.50"), MAX_LOAN_AMT);
         Pd saved = fakePd(1L, "신용대출", new BigDecimal("5.50"), MAX_LOAN_AMT);
-        when(productRepository.save("신용대출", new BigDecimal("5.50"), MAX_LOAN_AMT)).thenReturn(saved);
+        when(productRepository.save("신용대출", new BigDecimal("5.50"), MAX_LOAN_AMT, 19, 70)).thenReturn(saved);
 
         sut.create(request);
 
-        verify(productRepository).save("신용대출", new BigDecimal("5.50"), MAX_LOAN_AMT);
+        verify(productRepository).save("신용대출", new BigDecimal("5.50"), MAX_LOAN_AMT, 19, 70);
     }
 
     @Test
@@ -46,7 +46,7 @@ class ProductCommandServiceTest {
     void 등록_결과_매핑() {
         ProductCreateRequest request = request("신용대출", new BigDecimal("5.50"), MAX_LOAN_AMT);
         Pd saved = fakePd(10L, "신용대출", new BigDecimal("5.50"), MAX_LOAN_AMT);
-        when(productRepository.save("신용대출", new BigDecimal("5.50"), MAX_LOAN_AMT)).thenReturn(saved);
+        when(productRepository.save("신용대출", new BigDecimal("5.50"), MAX_LOAN_AMT, 19, 70)).thenReturn(saved);
 
         ProductCreateResponse result = sut.create(request);
 
@@ -61,6 +61,8 @@ class ProductCommandServiceTest {
         when(request.getProductName()).thenReturn(name);
         when(request.getInterestRate()).thenReturn(rate);
         when(request.getMaxLoanAmt()).thenReturn(maxLoanAmt);
+        when(request.getMinAge()).thenReturn(19);
+        when(request.getMaxAge()).thenReturn(70);
         return request;
     }
 
