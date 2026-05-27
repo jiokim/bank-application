@@ -1,14 +1,8 @@
 package com.bank.loan.controller;
 
-import com.bank.loan.controller.dto.LoanPhoneSendRequest;
-import com.bank.loan.controller.dto.LoanPhoneSendResponse;
-import com.bank.loan.controller.dto.LoanRealNameVerificationRequest;
-import com.bank.loan.controller.dto.LoanRealNameVerificationResponse;
+import com.bank.loan.controller.dto.*;
 import com.bank.loan.service.application.verification.LoanCustVerifyService;
-import com.bank.loan.service.application.verification.dto.LoanPhoneSendCommand;
-import com.bank.loan.service.application.verification.dto.LoanPhoneSendInfo;
-import com.bank.loan.service.application.verification.dto.LoanRealNameVerifyCommand;
-import com.bank.loan.service.application.verification.dto.LoanRealNameVerifyInfo;
+import com.bank.loan.service.application.verification.dto.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -42,5 +36,14 @@ public class LoanCustVerifyController {
         LoanPhoneSendInfo info = loanCustVerifyService.sendPhone(
                 new LoanPhoneSendCommand(request.getCustId(), request.getPhoneNo()));
         return new LoanPhoneSendResponse(info.sent(), info.verifyToken(), info.phoneNo());
+    }
+
+    @Operation(summary = "휴대폰 인증번호 확인",
+            description = "발송된 인증번호를 확인합니다.")
+    @PostMapping("/phone-verification/confirm")
+    public LoanPhoneVerifyResponse confirmPhone(@Valid @RequestBody LoanPhoneVerifyRequest request) {
+        LoanPhoneVerifyInfo info = loanCustVerifyService.verifyPhone(
+                new LoanPhoneVerifyCommand(request.getCustId(), request.getPhoneNo(), request.getVerifyToken(), request.getVerifyCode(), request.getAgreedTermIds()));
+        return new LoanPhoneVerifyResponse(info.verified());
     }
 }

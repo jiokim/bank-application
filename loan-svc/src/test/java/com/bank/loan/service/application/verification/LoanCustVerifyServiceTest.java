@@ -4,10 +4,13 @@ import com.bank.cust.core.domain.model.Cust;
 import com.bank.cust.core.domain.service.CustMngr;
 import com.bank.loan.client.phone.PhoneVerificationClient;
 import com.bank.loan.client.phone.PhoneVerificationResult;
+import com.bank.loan.client.phone.PhoneVerifyResult;
 import com.bank.loan.client.realname.RealNameVerificationClient;
 import com.bank.loan.client.realname.RealNameVerificationResult;
 import com.bank.loan.service.application.verification.dto.LoanPhoneSendCommand;
 import com.bank.loan.service.application.verification.dto.LoanPhoneSendInfo;
+import com.bank.loan.service.application.verification.dto.LoanPhoneVerifyCommand;
+import com.bank.loan.service.application.verification.dto.LoanPhoneVerifyInfo;
 import com.bank.loan.service.application.verification.dto.LoanRealNameVerifyCommand;
 import com.bank.loan.service.application.verification.dto.LoanRealNameVerifyInfo;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +21,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -142,7 +146,7 @@ class LoanCustVerifyServiceTest {
             Cust cust = mock(Cust.class);
             when(cust.getCustNm()).thenReturn("홍길동");
             when(cust.getRnmNbr()).thenReturn("8901011000001");
-            when(custMngr.findCustById(1L)).thenReturn(Optional.of(cust));
+            when(custMngr.findCustById(1L)).thenReturn(cust);
             when(phoneVerificationClient.send(anyString(), anyString(), anyString()))
                     .thenReturn(PhoneVerificationResult.success("test-token"));
 
@@ -187,7 +191,7 @@ class LoanCustVerifyServiceTest {
             Cust cust = mock(Cust.class);
             when(cust.getCustNm()).thenReturn("홍길동");
             when(cust.getRnmNbr()).thenReturn("8901011000001");
-            when(custMngr.findCustById(1L)).thenReturn(Optional.of(cust));
+            when(custMngr.findCustById(1L)).thenReturn(cust);
             when(phoneVerificationClient.send(anyString(), anyString(), anyString()))
                     .thenReturn(PhoneVerificationResult.failure("통신사 서비스 오류"));
 
@@ -204,7 +208,7 @@ class LoanCustVerifyServiceTest {
         @Test
         void 미가입_고객이면_실패를_반환한다() {
             // given
-            when(custMngr.findCustById(99L)).thenReturn(Optional.empty());
+            when(custMngr.findCustById(99L)).thenReturn(null);
 
             // when
             LoanPhoneSendInfo info = sut.sendPhone(new LoanPhoneSendCommand(99L, "01012345678"));
@@ -212,6 +216,101 @@ class LoanCustVerifyServiceTest {
             // then
             assertThat(info.sent()).isFalse();
             assertThat(info.message()).isEqualTo("미가입 고객입니다.");
+        }
+    }
+
+    @Nested
+    @DisplayName("휴대폰 인증번호 확인")
+    class VerifyPhone {
+
+
+        @DisplayName("[성공] 인증번호가 일치하면 verified=true와 agreementId를 반환한다")
+        @Test
+        void 인증번호_확인_성공() {
+            // given
+            Cust cust = mock(Cust.class);
+            when(custMngr.findCustById(1L)).thenReturn(cust);
+            when(cust.getCustNm()).thenReturn("홍길동");
+            when(cust.getRnmNbr()).thenReturn("8901011000001");
+            when(phoneVerificationClient.verify("test-token", "123456", "01012345678", "홍길동", "8901011000001"))
+                    .thenReturn(PhoneVerifyResult.success());
+            // when
+            LoanPhoneVerifyInfo info = sut.verifyPhone(new LoanPhoneVerifyCommand(1L, "01012345678", "test-token", "123456", List.of(1L, 2L)));
+
+            // then
+            assertThat(info.verified()).isTrue();
+            verify(custMngr).savePhoneNo(1L, "01012345678");
+            verify(custMngr).saveTermsAgreement(1L, List.of(1L, 2L));
+        }
+
+        @DisplayName("[실패] 인증번호가 불일치하면 verified=false와 실패 메시지를 반환한다")
+        @Test
+        void 인증번호_불일치_시_verified_false를_반환한다() {
+            // given
+            Cust cust = mock(Cust.class);
+            when(custMngr.findCustById(1L)).thenReturn(cust);
+            when(cust.getCustNm()).thenReturn("홍길동");
+            when(cust.getRnmNbr()).thenReturn("8901011000001");
+            when(phoneVerificationClient.verify(anyString(), anyString(), anyString(), anyString(), anyString()))
+                    .thenReturn(PhoneVerifyResult.failure("인증번호가 일치하지 않습니다."));
+
+            // when
+            LoanPhoneVerifyInfo info = sut.verifyPhone(new LoanPhoneVerifyCommand(1L, "01012345678", "test-token", "000000", List.of(1L, 2L)));
+
+            // then
+            assertThat(info.verified()).isFalse();
+            assertThat(info.message()).isEqualTo("인증번호가 일치하지 않습니다.");
+        }
+
+        @DisplayName("[실패] 미가입 고객이면 verified=false를 반환한다")
+        @Test
+        void 미가입_고객이면_verified_false를_반환한다() {
+            // given
+            when(custMngr.findCustById(99L)).thenReturn(null);
+
+            // when
+            LoanPhoneVerifyInfo info = sut.verifyPhone(new LoanPhoneVerifyCommand(99L, "01012345678", "test-token", "123456", List.of(1L, 2L)));
+
+            // then
+            assertThat(info.verified()).isFalse();
+            assertThat(info.message()).isEqualTo("미가입 고객입니다.");
+            verify(phoneVerificationClient, never()).verify(anyString(), anyString(), anyString(), anyString(), anyString());
+        }
+
+        @DisplayName("[실패] 고객 ID가 없으면 IllegalArgumentException이 발생한다")
+        @Test
+        void 고객ID가_없으면_예외가_발생한다() {
+            // given
+            LoanPhoneVerifyCommand command = new LoanPhoneVerifyCommand(null, "01012345678", "test-token", "123456", List.of(1L, 2L));
+
+            // when & then
+            assertThatThrownBy(() -> sut.verifyPhone(command))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessageContaining("고객 ID");
+        }
+
+        @DisplayName("[실패] 인증 토큰이 없으면 IllegalArgumentException이 발생한다")
+        @Test
+        void 인증토큰이_없으면_예외가_발생한다() {
+            // given
+            LoanPhoneVerifyCommand command = new LoanPhoneVerifyCommand(1L, "01012345678", "", "123456", List.of(1L, 2L));
+
+            // when & then
+            assertThatThrownBy(() -> sut.verifyPhone(command))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessageContaining("인증 토큰");
+        }
+
+        @DisplayName("[실패] 인증번호가 없으면 IllegalArgumentException이 발생한다")
+        @Test
+        void 인증번호가_없으면_예외가_발생한다() {
+            // given
+            LoanPhoneVerifyCommand command = new LoanPhoneVerifyCommand(1L, "01012345678", "test-token", "", List.of(1L, 2L));
+
+            // when & then
+            assertThatThrownBy(() -> sut.verifyPhone(command))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessageContaining("인증번호");
         }
     }
 }

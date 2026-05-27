@@ -1,9 +1,11 @@
 package com.bank.loan.controller;
 
 import com.bank.loan.controller.dto.LoanPhoneSendResponse;
+import com.bank.loan.controller.dto.LoanPhoneVerifyResponse;
 import com.bank.loan.controller.dto.LoanRealNameVerificationResponse;
 import com.bank.loan.service.application.verification.LoanCustVerifyService;
 import com.bank.loan.service.application.verification.dto.LoanPhoneSendInfo;
+import com.bank.loan.service.application.verification.dto.LoanPhoneVerifyInfo;
 import com.bank.loan.service.application.verification.dto.LoanRealNameVerifyInfo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -241,6 +243,142 @@ class LoanCustVerifyControllerTest {
                         assertThat(response.sent()).isFalse();
                         assertThat(response.verifyToken()).isNull();
                     });
+        }
+    }
+
+    @Nested
+    @DisplayName("휴대폰 인증번호 확인")
+    class ConfirmPhone {
+
+        @DisplayName("[성공] 인증번호가 일치하면 verified=true를 반환한다")
+        @Test
+        void 인증번호가_일치하면_200을_반환한다() {
+            given(loanCustVerifyService.verifyPhone(any()))
+                    .willReturn(LoanPhoneVerifyInfo.success());
+
+            MvcTestResult result = mockMvcTester.post()
+                    .uri("/v1/loans/phone-verification/confirm")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("""
+                            {
+                              "custId": 1,
+                              "phoneNo": "01012345678",
+                              "verifyToken": "test-token",
+                              "verifyCode": "123456",
+                              "agreedTermIds": [1, 2]
+                            }
+                            """)
+                    .exchange();
+
+            assertThat(result)
+                    .hasStatusOk()
+                    .bodyJson()
+                    .convertTo(LoanPhoneVerifyResponse.class)
+                    .satisfies(response -> assertThat(response.verified()).isTrue());
+        }
+
+        @DisplayName("[실패] 고객 ID가 없으면 400을 반환한다")
+        @Test
+        void 고객ID가_없으면_400을_반환한다() {
+            MvcTestResult result = mockMvcTester.post()
+                    .uri("/v1/loans/phone-verification/confirm")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("""
+                            {
+                              "custId": null,
+                              "phoneNo": "01012345678",
+                              "verifyToken": "test-token",
+                              "verifyCode": "123456"
+                            }
+                            """)
+                    .exchange();
+
+            assertThat(result).hasStatus4xxClientError();
+        }
+
+        @DisplayName("[실패] 인증 토큰이 없으면 400을 반환한다")
+        @Test
+        void 인증토큰이_없으면_400을_반환한다() {
+            MvcTestResult result = mockMvcTester.post()
+                    .uri("/v1/loans/phone-verification/confirm")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("""
+                            {
+                              "custId": 1,
+                              "phoneNo": "01012345678",
+                              "verifyToken": null,
+                              "verifyCode": "123456"
+                            }
+                            """)
+                    .exchange();
+
+            assertThat(result).hasStatus4xxClientError();
+        }
+
+        @DisplayName("[실패] 인증번호가 없으면 400을 반환한다")
+        @Test
+        void 인증번호가_없으면_400을_반환한다() {
+            MvcTestResult result = mockMvcTester.post()
+                    .uri("/v1/loans/phone-verification/confirm")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("""
+                            {
+                              "custId": 1,
+                              "phoneNo": "01012345678",
+                              "verifyToken": "test-token",
+                              "verifyCode": null
+                            }
+                            """)
+                    .exchange();
+
+            assertThat(result).hasStatus4xxClientError();
+        }
+
+        @DisplayName("[실패] 약관 동의 항목이 없으면 400을 반환한다")
+        @Test
+        void 약관동의항목이_없으면_400을_반환한다() {
+            MvcTestResult result = mockMvcTester.post()
+                    .uri("/v1/loans/phone-verification/confirm")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("""
+                            {
+                              "custId": 1,
+                              "phoneNo": "01012345678",
+                              "verifyToken": "test-token",
+                              "verifyCode": "123456",
+                              "agreedTermIds": null
+                            }
+                            """)
+                    .exchange();
+
+            assertThat(result).hasStatus4xxClientError();
+        }
+
+        @DisplayName("[실패] 인증번호가 불일치하면 verified=false를 반환한다")
+        @Test
+        void 인증번호가_불일치하면_verified_false를_반환한다() {
+            given(loanCustVerifyService.verifyPhone(any()))
+                    .willReturn(LoanPhoneVerifyInfo.failure("인증번호가 일치하지 않습니다."));
+
+            MvcTestResult result = mockMvcTester.post()
+                    .uri("/v1/loans/phone-verification/confirm")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("""
+                            {
+                              "custId": 1,
+                              "phoneNo": "01012345678",
+                              "verifyToken": "test-token",
+                              "verifyCode": "000000",
+                              "agreedTermIds": [1, 2]
+                            }
+                            """)
+                    .exchange();
+
+            assertThat(result)
+                    .hasStatusOk()
+                    .bodyJson()
+                    .convertTo(LoanPhoneVerifyResponse.class)
+                    .satisfies(response -> assertThat(response.verified()).isFalse());
         }
     }
 }

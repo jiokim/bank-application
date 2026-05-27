@@ -11,4 +11,9 @@ public class InMemoryPhoneVerificationClient implements PhoneVerificationClient 
     public PhoneVerificationResult send(String phoneNo, String custNm, String rnmNbr) {
         return PhoneVerificationResult.success(UUID.randomUUID().toString());
     }
+
+    @Override
+    public PhoneVerifyResult verify(String verifyToken, String verifyCode, String phoneNo, String custNm, String rnmNbr) {
+        return PhoneVerifyResult.success();
+    }
 }
