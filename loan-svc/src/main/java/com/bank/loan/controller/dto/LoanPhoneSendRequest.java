@@ -4,20 +4,22 @@ import com.bank.common.sensitive.Sensitive;
 import com.bank.common.sensitive.StoragePolicy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Schema(description = "대출신청 실명인증 요청")
-public class LoanRealNameVerificationRequest {
+@Schema(description = "휴대폰 인증번호 발송 요청")
+public class LoanPhoneSendRequest {
 
-    @NotBlank
-    @Schema(description = "고객명", example = "홍길동")
-    private String custNm;
+    @NotNull
+    @Schema(description = "고객 ID", example = "1")
+    private Long custId;
 
     @NotBlank
     @Sensitive(storagePolicy = StoragePolicy.ENCRYPT)
-    @Schema(description = "실명번호 (주민등록번호 13자리)", example = "8901011000001")
-    private String rnmNbr;
+    @Schema(description = "휴대폰 번호", example = "01012345678")
+    private String phoneNo;
+
 }
